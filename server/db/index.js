@@ -2,9 +2,9 @@ require('dotenv').config();
 const {MongoClient} = require('mongodb');
 const fs = require('fs');
 
-const MONGODB_DB_NAME = 'clearfashion';
+const MONGODB_DB_NAME = 'SchoolProject';
 const MONGODB_COLLECTION = 'products';
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = "mongodb+srv://Thomas:<CHxhCI8Hsfu77OZH>@schoolproject.hu13b.mongodb.net/SchoolProject?retryWrites=true&w=majority"
 
 let client = null;
 let database = null;
