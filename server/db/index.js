@@ -60,7 +60,7 @@ module.exports.insert = async products => {
  * @param  {Array}  query
  * @return {Array}
  */
-module.exports.find = async (query,limite=12) => {
+module.exports.find = async (query={},limite=12) => {
   try {
     const db = await getDB();
     const collection = db.collection(MONGODB_COLLECTION);

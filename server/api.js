@@ -16,23 +16,26 @@ app.use(helmet());
 
 app.options('*', cors());
 
+app.get('/', (request, response) => {
+  console.log("test");
+});
+
 app.get('/products', (request, response) => {
   console.log(mongo.find());
 });
 
 
 app.get('/products/:id', (request, response) => {
-  const id = request.params("id");
+  const id = request.params.id;
+  console.log(id)
   console.log(mongo.find({"id":id}))
-  mongo.close()
 });
 
 app.get("/products/search", (request, response) => {
-  const limit = request.params("limit");
-  const brand = request.params("brand");
-  const price = request.params("price");
+  const limit = request.query.limit;
+  const brand = request.query.brand;
+  const price = request.query.price;
   console.log(mongo.find({"brand":brand,"price":price},limit))
-  mongo.close()
 });
 
 
