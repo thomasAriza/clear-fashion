@@ -17,7 +17,7 @@ const parse = data => {
             .split(",")[0]
         );
   
-        return {name, price};
+        return {name, price,"brand":"montlimart"};
       })
       .get();
   };

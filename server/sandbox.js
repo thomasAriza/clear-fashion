@@ -65,7 +65,6 @@ async function sandbox_3 (eshop = 'https://adresse.paris/630-toute-la-collection
     console.error(e);
   }
 }
-
-sandbox_3(eshop)
+sandbox(eshop)
 
 

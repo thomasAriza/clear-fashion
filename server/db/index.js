@@ -64,7 +64,7 @@ module.exports.find = async (query={},limite=12) => {
   try {
     const db = await getDB();
     const collection = db.collection(MONGODB_COLLECTION);
-    const result = await collection.find(query,{"projection" : {"id":1,"name":1,"price":1}}).limit(limite).toArray();
+    const result = await collection.find(query,{"projection" : {"id":1,"name":1,"price":1,"brand":1}}).limit(limite).toArray();
     console.log(limite)
     console.log(query)
     return result;

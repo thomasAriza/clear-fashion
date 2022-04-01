@@ -33,14 +33,37 @@ app.get('/products/:id', async (request, response) => {
 });
 
 app.get("/search", async (request, response) => {
-  const limit = request.query.limit;
+  let limit = parseInt(request.query.limit);
   console.log(limit)
 
   const brand = request.query.brand;
   console.log(brand)
-  const price = request.query.price;
+  const price = parseInt(request.query.price);
   console.log(price)
-  console.log(await mongo.find({"brand":brand,"price":new Int32(price)},limit))
+  if (brand==undefined && price==undefined && limit==undefined){
+    console.log(await mongo.find())
+  }
+  else if(brand==undefined && price==undefined){
+    console.log(await mongo.find({},limit))
+  }
+  else if(price==undefined && limit==undefined){
+    console.log(await mongo.find({"brand":brand}))
+  }
+  else if(brand==undefined && limit==undefined){
+    console.log(await mongo.find({"price":price}))
+  }
+  else if(brand==undefined){
+    console.log(await mongo.find({"price":price},limit))
+  }
+  else if(price==undefined){
+    console.log(await mongo.find({"brand":brand},limit))
+  }
+  else if(limit==undefined){
+    console.log(await mongo.find({"brand":brand,"price":price}))
+  }
+  else{
+    console.log(await mongo.find({"brand":brand,"price":price},limit))
+  }
 });
 
 

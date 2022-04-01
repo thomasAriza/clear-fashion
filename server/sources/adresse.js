@@ -18,7 +18,7 @@ const parse = data => {
             .replace(" ","")
         );
   
-        return {name, price};
+        return {name, price,"brand":"adresse"};
       })
       .get();
   };
