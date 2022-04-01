@@ -1,6 +1,7 @@
 const cors = require('cors');
 const express = require('express');
 const helmet = require('helmet');
+const { ObjectId, Int32 } = require('mongodb');
 
 const mongo = require("./db/index")
 
@@ -20,22 +21,26 @@ app.get('/', (request, response) => {
   console.log("test");
 });
 
-app.get('/products', (request, response) => {
-  console.log(mongo.find());
+app.get('/products', async (request, response) => {
+  let product= await mongo.find()
+  console.log(product);
 });
 
 
-app.get('/products/:id', (request, response) => {
+app.get('/products/:id', async (request, response) => {
   const id = request.params.id;
-  console.log(id)
-  console.log(mongo.find({"id":id}))
+  console.log(await mongo.find({"_id":ObjectId(id)}))
 });
 
-app.get("/products/search", (request, response) => {
+app.get("/search", async (request, response) => {
   const limit = request.query.limit;
+  console.log(limit)
+
   const brand = request.query.brand;
+  console.log(brand)
   const price = request.query.price;
-  console.log(mongo.find({"brand":brand,"price":price},limit))
+  console.log(price)
+  console.log(await mongo.find({"brand":brand,"price":new Int32(price)},limit))
 });
 
 
