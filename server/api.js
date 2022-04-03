@@ -18,51 +18,55 @@ app.use(helmet());
 app.options('*', cors());
 
 app.get('/', (request, response) => {
-  console.log("test");
+  response.send("Home");
 });
 
 app.get('/products', async (request, response) => {
   let product= await mongo.find()
-  console.log(product);
+  response.send(product)
 });
 
 
 app.get('/products/:id', async (request, response) => {
   const id = request.params.id;
-  console.log(await mongo.find({"_id":ObjectId(id)}))
+  response.send(await mongo.find({"_id":ObjectId(id)}))
 });
 
 app.get("/search", async (request, response) => {
   let limit = parseInt(request.query.limit);
-  console.log(limit)
 
   const brand = request.query.brand;
-  console.log(brand)
-  const price = parseInt(request.query.price);
-  console.log(price)
+  
+  
+  const price = request.query.price;
+  if( price != undefined){
+    price=parseInt(price)
+  }
+  
   if (brand==undefined && price==undefined && limit==undefined){
-    console.log(await mongo.find())
+    response.send(await mongo.find())
   }
   else if(brand==undefined && price==undefined){
-    console.log(await mongo.find({},limit))
+    response.send(await mongo.find({},limit))
   }
   else if(price==undefined && limit==undefined){
-    console.log(await mongo.find({"brand":brand}))
+    console.log("test")
+    response.send(await mongo.find({"brand":brand}))
   }
   else if(brand==undefined && limit==undefined){
-    console.log(await mongo.find({"price":price}))
+    response.send(await mongo.find({"price":price}))
   }
   else if(brand==undefined){
-    console.log(await mongo.find({"price":price},limit))
+    response.send(await mongo.find({"price":price},limit))
   }
   else if(price==undefined){
-    console.log(await mongo.find({"brand":brand},limit))
+    response.send(await mongo.find({"brand":brand},limit))
   }
   else if(limit==undefined){
-    console.log(await mongo.find({"brand":brand,"price":price}))
+    response.send(await mongo.find({"brand":brand,"price":price}))
   }
   else{
-    console.log(await mongo.find({"brand":brand,"price":price},limit))
+    response.send(await mongo.find({"brand":brand,"price":price},limit))
   }
 });
 
